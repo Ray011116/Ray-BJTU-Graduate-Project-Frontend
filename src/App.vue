@@ -1,30 +1,42 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <div id="app">
+    <BasicLayout></BasicLayout>
+  </div>
 </template>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>
+
+<script setup lang="ts">
+import BasicLayout from "@/layouts/BasicLayout.vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+import { onMounted } from "vue";
+
+/**
+ * 全局初始化函数，系统全局单次调用的代码
+ */
+const doInit = () => {
+  console.log("BJTU 20级 饶睿的毕设");
+};
+
+onMounted(() => {
+  doInit();
+});
+
+const router = useRouter();
+const store = useStore();
+
+router.beforeEach((to, from, next) => {
+  // 判断当前用户是否有权限
+  if (to.meta?.access === "canAdmin") {
+    if (store.state.user.loginUser?.userRole !== "admin") {
+      next("/noAuth");
+      return;
+    }
+  }
+  next();
+});
+</script>
