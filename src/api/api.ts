@@ -6,3 +6,11 @@ export function getLoginUser() {
     method: "GET",
   });
 }
+
+export function userLogin(data: any) {
+  return axios({
+    url: "/api/user/login",
+    method: "POST",
+    data: data,
+  });
+}

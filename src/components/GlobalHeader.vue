@@ -29,7 +29,7 @@
     <a-col flex="100px">
       <div>
         <p>你好！</p>
-        {{ store.state.user?.loginUser?.userName ?? "未登录" }}
+        {{ store.state.user.loginUser?.data?.userName ?? "未登录" }}
       </div>
     </a-col>
   </a-row>
@@ -41,7 +41,6 @@ import { useRouter } from "vue-router";
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import checkAccess from "@/access/checkAccess";
-import ACCESS_ENUM from "@/access/accessEnum";
 
 const router = useRouter();
 const store = useStore();
@@ -67,13 +66,6 @@ const selectedKey = ref(["/"]);
 router.afterEach((to, from, before) => {
   selectedKey.value = [to.path];
 });
-
-setTimeout(() => {
-  store.dispatch("user/getLoginUser", {
-    userName: "SA Ray",
-    userRole: ACCESS_ENUM.ADMIN,
-  });
-}, 3000);
 
 const doMenuClick = (key: string) => {
   router.push({
