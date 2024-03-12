@@ -8,4 +8,6 @@ import "@/api/axiosInterceptor";
 import "@/access/";
 import "bytemd/dist/index.css";
 
-createApp(App).use(ArcoVue).use(store).use(router).mount("#app");
+const app = createApp(App);
+app.config.warnHandler = () => null; // 控制台屏蔽vue warning
+app.use(ArcoVue).use(store).use(router).mount("#app");
