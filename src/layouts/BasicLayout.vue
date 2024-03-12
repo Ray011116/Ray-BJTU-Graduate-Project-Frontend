@@ -8,7 +8,10 @@
         <router-view />
       </a-layout-content>
       <a-layout-footer class="footer">
-        <a href="https://www.baidu.com" target="_blank">
+        <a
+          href="https://github.com/Ray011116/Ray-BJTU-Graduate-Project-Frontend/"
+          target="_blank"
+        >
           在线做题与面试系统 by 饶睿 20301168 BJTU
         </a>
       </a-layout-footer>
