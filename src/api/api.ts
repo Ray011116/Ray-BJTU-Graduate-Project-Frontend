@@ -81,3 +81,15 @@ export function listQuestionByPage(data: any) {
     data: data,
   });
 }
+
+/**
+ * 分页查询题目（脱敏）
+ * @param data
+ */
+export function listQuestionVOByPage(data: any) {
+  return axios({
+    url: "/api/question/list/page/vo",
+    method: "POST",
+    data: data,
+  });
+}

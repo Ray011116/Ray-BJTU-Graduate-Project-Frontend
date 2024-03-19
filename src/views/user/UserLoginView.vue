@@ -53,7 +53,7 @@ const handleSubmit = async () => {
   // 登录成功，跳转到主页
   if (res.data.code === 0) {
     router.push({
-      path: "/list/question",
+      path: "/test",
       replace: true,
     });
   } else {

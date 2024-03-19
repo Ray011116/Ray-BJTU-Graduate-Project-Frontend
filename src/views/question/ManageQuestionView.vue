@@ -46,6 +46,10 @@ const columns = [
     dataIndex: "tags",
   },
   {
+    title: "答案",
+    dataIndex: "answer",
+  },
+  {
     title: "提交数",
     dataIndex: "submitNum",
   },
@@ -90,7 +94,7 @@ const loadData = async () => {
     dataList.value = res.data.records;
     total.value = res.data.total;
   } else {
-    message.error("加载题目失败" + res.message);
+    message.error("加载题目失败：" + res.message);
   }
 };
 
@@ -146,5 +150,7 @@ const doUpdate = (question: any) => {
 
 <style scoped>
 #manageQuestionView {
+  max-width: 80%;
+  margin: auto;
 }
 </style>

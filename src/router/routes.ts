@@ -8,6 +8,7 @@ import UserLoginView from "@/views/user/UserLoginView.vue";
 import UserRegisterView from "@/views/user/UserRegisterView.vue";
 import AddQuestionView from "@/views/question/AddQuestionView.vue";
 import ManageQuestionView from "@/views/question/ManageQuestionView.vue";
+import QuestionsView from "@/views/question/QuestionsView.vue";
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -39,9 +40,14 @@ export const routes: Array<RouteRecordRaw> = [
     ],
   },
   {
-    path: "/list/question",
-    name: "浏览题目",
+    path: "/test",
+    name: "测试用",
     component: HomeView,
+  },
+  {
+    path: "/questions",
+    name: "浏览题目",
+    component: QuestionsView,
   },
   {
     path: "/add/question",

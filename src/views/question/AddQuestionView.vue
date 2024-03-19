@@ -230,5 +230,7 @@ const doSubmit = async () => {
 
 <style scoped>
 #addQuestionView {
+  max-width: 80%;
+  margin: auto;
 }
 </style>
