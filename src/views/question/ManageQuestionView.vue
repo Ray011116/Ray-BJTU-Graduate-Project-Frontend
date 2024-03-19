@@ -7,9 +7,10 @@
       :pagination="{
         showTotal: true,
         pageSize: searchParams.pageSize,
-        current: searchParams.pageNum,
+        current: searchParams.current,
         total: total,
       }"
+      @page-change="onPageChange"
     >
       <template #optional="{ record }">
         <a-space>
@@ -22,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watchEffect } from "vue";
 import { deleteQuestion, listQuestionByPage } from "@/api/api";
 import message from "@arco-design/web-vue/es/message";
 import { useRouter } from "vue-router";
@@ -80,7 +81,7 @@ const dataList = ref([]);
 const total = ref(0);
 const searchParams = ref({
   pageSize: 10,
-  pageNum: 1,
+  current: 1,
 });
 
 const loadData = async () => {
@@ -100,6 +101,25 @@ onMounted(() => {
   loadData();
 });
 
+/**
+ * 监听searchParams变量，重新加载数据
+ */
+watchEffect(() => {
+  loadData();
+});
+
+/**
+ * 翻页回调函数
+ * @param page
+ */
+const onPageChange = (page: number) => {
+  searchParams.value.current = page;
+};
+
+/**
+ * 点击删除题目
+ * @param question
+ */
 const doDelete = async (question: any) => {
   const res = (await deleteQuestion({ id: question.id })).data;
   if (res.code === 0) {
@@ -110,6 +130,10 @@ const doDelete = async (question: any) => {
   }
 };
 
+/**
+ * 点击修改题目
+ * @param question
+ */
 const doUpdate = (question: any) => {
   router.push({
     path: "/update/question",
