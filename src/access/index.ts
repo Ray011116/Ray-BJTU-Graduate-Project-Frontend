@@ -4,13 +4,13 @@ import ACCESS_ENUM from "@/access/accessEnum";
 import checkAccess from "@/access/checkAccess";
 
 router.beforeEach(async (to, from, next) => {
-  const loginUser = store.state.user.loginUser;
+  let loginUser = store.state.user.loginUser;
 
   // 如果之前未登录过，执行自动登录
   if (!loginUser || !loginUser.userRole) {
-    console.log("in here");
     // 等待用户登陆成功
     await store.dispatch("user/getLoginUser");
+    loginUser = store.state.user.loginUser;
   }
 
   const needAccess = (to.meta?.access as string) ?? ACCESS_ENUM.NOT_LOGIN;
@@ -18,7 +18,11 @@ router.beforeEach(async (to, from, next) => {
   // 跳转的页面必须要登陆
   if (needAccess !== ACCESS_ENUM.NOT_LOGIN) {
     // 如果未登录，则跳转到登录页面
-    if (!loginUser || !loginUser.userRole) {
+    if (
+      !loginUser ||
+      !loginUser.userRole ||
+      loginUser.userRole === ACCESS_ENUM.NOT_LOGIN
+    ) {
       next(`/user/login?redirect=${to.fullPath}`);
       return;
     }
